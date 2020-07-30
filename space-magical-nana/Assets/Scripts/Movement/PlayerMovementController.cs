@@ -6,12 +6,21 @@ using UnityEngine;
 /// Future player movement controller component, for now is
 /// just a test script for the moving entity
 /// </summary>
+[RequireComponent(typeof(MovingEntity))]
 public class PlayerMovementController : MonoBehaviour
 {
-
-    public Camera cam;
-    public float toleranceRadius = 10;
+    // -- Self Components ------------------
     private MovingEntity movingEntity;
+    // -------------------------------------
+
+    // -- Editor Variables -----------------
+
+    /// <summary>
+    /// The camera that the player is using
+    /// </summary>
+    public Camera cam;
+
+    // -------------------------------------
 
     private void Start()
     {
@@ -20,13 +29,13 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 input = cam.ScreenToWorldPoint( Input.mousePosition );
-
-        if (Input.GetKey(KeyCode.Mouse0) && input.sqrMagnitude > toleranceRadius * toleranceRadius)
-            movingEntity.MovePosition(input);
+        // We're only interested in a single touch, so we use 
+        // only the first touch 
+        if (Input.touchCount > 0)
+        {
+            
+        }
         else
             movingEntity.Stop();
-
-        Debug.Log(input);
     }
 }

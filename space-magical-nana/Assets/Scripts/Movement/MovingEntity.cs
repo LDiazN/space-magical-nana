@@ -8,7 +8,7 @@ using UnityEngine;
 /// well-defined path. This class requires a RigidBody2D setted to kinematic
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class MovingEntity : MonoBehaviour
+public class MovingEntity : BaseMovingEntity
 {
     // -- Self components ----------------
     private Rigidbody2D rb2d;
@@ -20,7 +20,7 @@ public class MovingEntity : MonoBehaviour
     /// <summary>
     /// How fast this entity can move
     /// </summary>
-    public float maxSpeed = 10f;
+    public float maxSpeed;  
 
     // -----------------------------------
 
@@ -55,4 +55,16 @@ public class MovingEntity : MonoBehaviour
     /// Set the current speed to 0
     /// </summary>
     public void Stop() => velocity = Vector2.zero;
+
+    // -- Abstract methods ---------------------
+
+    public override void SetMaxSpeed(float newSpeed) => maxSpeed = newSpeed;
+
+    public override float GetMaxSpeed() => maxSpeed;
+
+    public override Vector2 GetVelocity() => velocity;
+
+
+
+
 }
