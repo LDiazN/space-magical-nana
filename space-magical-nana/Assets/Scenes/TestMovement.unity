@@ -153,8 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286c72dca3e4b674c9769804693f7046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  acceleration: 10
+  maxSpeed: 10
 --- !u!61 &872768634
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -229,7 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd2a316bdc6bd34390fb7cdc6e37f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementActive: 1
+  cam: {fileID: 1652611769}
+  toleranceRadius: 1
 --- !u!1 &966045731
 GameObject:
   m_ObjectHideFlags: 0

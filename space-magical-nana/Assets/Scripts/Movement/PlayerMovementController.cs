@@ -20,11 +20,12 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 input = cam.ScreenToWorldPoint( Input.mousePosition ) - 
-                        transform.position;
+        Vector2 input = cam.ScreenToWorldPoint( Input.mousePosition );
 
-        if ( Input.GetKey(KeyCode.Mouse0) && input.sqrMagnitude > toleranceRadius * toleranceRadius)
-            movingEntity.Move(input);
+        if (Input.GetKey(KeyCode.Mouse0) && input.sqrMagnitude > toleranceRadius * toleranceRadius)
+            movingEntity.MovePosition(input);
+        else
+            movingEntity.Stop();
 
         Debug.Log(input);
     }
