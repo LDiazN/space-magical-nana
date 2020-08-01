@@ -16,6 +16,10 @@ public class Ship : MonoBehaviour
     protected ShipBaseStatsSO _baseStats;
 
 
+    protected virtual void Start()
+    {
+    }
+
     /// <summary>
     /// Gets ship HP
     /// </summary>

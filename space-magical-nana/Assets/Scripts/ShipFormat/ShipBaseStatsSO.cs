@@ -18,7 +18,7 @@ public class ShipBaseStatsSO : ScriptableObject
 }
 
 
-[System.Serializable]
+[Serializable]
 public class ShipUpgrades
 {
     public int HPLevel = 1;
