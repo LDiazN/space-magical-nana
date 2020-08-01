@@ -56,33 +56,4 @@ public class UpgradeableShip : Ship
     {
         return _baseStats.baseVampirism + UpgradesFunctions.VAMPGain(upgrades.VAMPLevel);
     }
-
-
-    /// <summary>
-    /// Upgrades ship stat
-    /// </summary>
-    /// <param name="stat">Stat to upgrade</param>
-    public void UpgradeStat(UpgradeableStats stat)
-    {
-        switch (stat)
-        {
-            case UpgradeableStats.HP:
-                ++upgrades.HPLevel;
-                break;
-            case UpgradeableStats.DMG:
-                ++upgrades.DMGLevel;
-                break;
-            case UpgradeableStats.RATE:
-                ++upgrades.RATELevel;
-                break;
-            case UpgradeableStats.VAMP:
-                ++upgrades.VAMPLevel;
-                break;
-            case UpgradeableStats.SPEED:
-                ++upgrades.SPEEDLevel;
-                break;
-            default:
-                throw new Exception("The fuck haces aca");
-        }
-    }
 }
