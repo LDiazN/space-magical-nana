@@ -29,12 +29,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        // We're only interested in a single touch, so we use 
-        // only the first touch 
-        if (Input.touchCount > 0)
-        {
-            
-        }
+        if (Input.GetKey(KeyCode.Mouse0))
+            movingEntity.MovePosition(cam.ScreenToWorldPoint(Input.mousePosition));
         else
             movingEntity.Stop();
     }
