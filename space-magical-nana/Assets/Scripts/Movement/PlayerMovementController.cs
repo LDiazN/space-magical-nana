@@ -33,7 +33,6 @@ public class PlayerMovementController : MonoBehaviour
         // only the first touch 
         if (Input.touchCount > 0)
         {
-            Debug.Log("Putisima");
             Touch touchInfo = Input.GetTouch(0);
             ManageTouch(touchInfo);
         }
@@ -43,7 +42,6 @@ public class PlayerMovementController : MonoBehaviour
 
     private void ManageTouch(in Touch touchInfo)
     {
-        Debug.Log("Gordo");
         switch (touchInfo.phase)
         {
             case TouchPhase.Began:
