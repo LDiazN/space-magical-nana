@@ -20,7 +20,12 @@ public class MovingEntity : BaseMovingEntity
     /// <summary>
     /// How fast this entity can move
     /// </summary>
-    public float maxSpeed;  
+    public float maxSpeed;
+
+    /// <summary>
+    /// How fast this object can reach the max speed 
+    /// </summary>
+    public float acceleration; 
 
     // -----------------------------------
 
@@ -50,7 +55,7 @@ public class MovingEntity : BaseMovingEntity
     /// </summary>
     /// <param name="position"> World position to move at </param>
     public void MovePosition(in Vector2 position) =>
-        velocity = (position - (Vector2)transform.position) * maxSpeed;
+        velocity = Vector2.ClampMagnitude((position - (Vector2)transform.position) * acceleration, maxSpeed);
     /// <summary>
     /// Set the current speed to 0
     /// </summary>
