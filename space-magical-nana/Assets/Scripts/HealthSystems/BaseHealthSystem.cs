@@ -29,6 +29,9 @@ public class BaseHealthSystem : MonoBehaviour
 
     protected virtual void Start()
     {
+        if (TryGetComponent(out Ship ship))
+            _maxHP = ship.GetHPStat();
+
         _actualHP = _maxHP;
     }
 
