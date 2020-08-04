@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This is a test code for now, we have to change this
+/// Sample test. Can be deleted later 
 /// </summary>
-public class Stage : Phase
+public class PeaShooter : Weapon
 {
-    
+
 }
