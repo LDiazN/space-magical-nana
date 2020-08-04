@@ -10,8 +10,16 @@ using UnityEngine;
 /// </summary>
 public class PlayerGarage : MonoBehaviour
 {
+    public static PlayerGarage Instance { get; private set; }
+
     private Dictionary<PlayerShips, ShipBaseStatsSO> _shipBaseStats;
     private Dictionary<PlayerShips, ShipUpgrades> _shipUpgrades;
+
+
+    private void Start()
+    {
+        Instance = this;
+    }
 
 
     public void UpgradeShip(PlayerShips ship, UpgradeableStats stat)
@@ -46,8 +54,16 @@ public class PlayerGarage : MonoBehaviour
     }
 
 
-    public void CopyShip(PlayerShips ship, UpgradeableShip dest)
-    { }
+    public ShipBaseStatsSO GetShipStats(PlayerShips ship)
+    {
+        return _shipBaseStats[ship];
+    }
+
+
+    public ShipUpgrades GetShipUpgrades(PlayerShips ship)
+    {
+        return _shipUpgrades[ship];
+    }
 }
 
 

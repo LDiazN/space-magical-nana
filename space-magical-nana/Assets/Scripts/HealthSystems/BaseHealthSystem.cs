@@ -8,17 +8,30 @@ public class BaseHealthSystem : MonoBehaviour
     /// <summary>
     /// Ship Max HP
     /// </summary>
-    protected int _maxHP { get; private set; }
+    [SerializeField]
+    [Min(1)]
+    protected int _maxHP;
     /// <summary>
     /// Ship Actual HP
     /// </summary>
-    protected int _actualHP { get; private set; }
+    [SerializeField]
+    [Min(0)]
+    protected int _actualHP;
 
     /// <summary>
     /// Indicates if the ship is invincible
     /// </summary>
     protected bool _invincible;
 
+    public float MaxHP
+    { 
+        get { return _maxHP; } 
+    }
+
+    public float HP
+    {
+        get { return _actualHP; }
+    }
 
     public bool Invincible
     {
@@ -29,6 +42,9 @@ public class BaseHealthSystem : MonoBehaviour
 
     protected virtual void Start()
     {
+        if (TryGetComponent(out Ship ship))
+            _maxHP = ship.GetHPStat();
+
         _actualHP = _maxHP;
     }
 

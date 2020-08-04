@@ -29,9 +29,43 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
-            movingEntity.MovePosition(cam.ScreenToWorldPoint(Input.mousePosition));
+        // We're only interested in a single touch, so we use 
+        // only the first touch 
+        if (Input.touchCount > 0)
+        {
+            Touch touchInfo = Input.GetTouch(0);
+            ManageTouch(touchInfo);
+        }
         else
             movingEntity.Stop();
+    }
+
+    private void ManageTouch(in Touch touchInfo)
+    {
+        switch (touchInfo.phase)
+        {
+            case TouchPhase.Began:
+            case TouchPhase.Moved:
+            case TouchPhase.Stationary:
+                MovePlayer(touchInfo);
+                break;
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
+                movingEntity.Stop();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private void MovePlayer(in Touch touchInfo)
+    {
+        movingEntity.MovePosition((Vector2)transform.position + CalculateDir(touchInfo.position));
+    }
+
+    private Vector2 CalculateDir(in Vector2 touchPos)
+    {
+        return (Camera.main.ScreenToWorldPoint(touchPos) - transform.position);
     }
 }

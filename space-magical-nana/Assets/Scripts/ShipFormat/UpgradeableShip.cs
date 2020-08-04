@@ -39,6 +39,8 @@ public class UpgradeableShip : Ship
         if (_loadFromGarage)
         {
             // Llamamos al garage
+            _baseStats = PlayerGarage.Instance.GetShipStats(_garageShip);
+            _upgrades = PlayerGarage.Instance.GetShipUpgrades(_garageShip);
         }
     }
 
