@@ -8,11 +8,13 @@ public class RegenerativeHealth : BaseHealthSystem
     /// Amount to be healed per second.
     /// </summary>
     [SerializeField]
+    [Min(0f)]
     private int _hpPerSecond = 2;
     /// <summary>
     /// Regeneration CoolDown
     /// </summary>
     [SerializeField]
+    [Min(0.1f)]
     private float _regenerationCD = 5f;
     /// <summary>
     /// Indicates if the ship is regenerating.

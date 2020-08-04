@@ -14,12 +14,14 @@ public class TouchDetector : MonoBehaviour
     /// not considered a tap.
     /// </summary>
     [SerializeField]
+    [Min(0f)]
     private float timeTreshold = 0.09f;
     /// <summary>
     /// How far can a touch be from the start to
     /// still be considered a tap.
     /// </summary>
     [SerializeField]
+    [Min(0f)]
     private float _moveTreshold = 0.1f;
     
     private float startTime;
