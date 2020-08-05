@@ -15,6 +15,11 @@ public class Ship : MonoBehaviour
     [SerializeField]
     protected ShipBaseStatsSO _baseStats;
 
+    public int HP { get { return GetHPStat(); } }
+    public int DMG { get { return GetDamageStat(); } }
+    public float RATE { get { return GetRateStat(); } }
+    public float VAMP { get { return GetVampirismStat(); } }
+    public float SPEED { get { return GetSpeedStat(); } }
 
     protected virtual void Start()
     {
@@ -26,7 +31,7 @@ public class Ship : MonoBehaviour
     /// <returns>Ship HP</returns>
     public virtual int GetHPStat()
     {
-        return _baseStats.baseHP;
+        return _baseStats.BaseHP;
     }
 
 
@@ -36,7 +41,7 @@ public class Ship : MonoBehaviour
     /// <returns>Ship damage</returns>
     public virtual int GetDamageStat()
     {
-        return _baseStats.baseDamage;
+        return _baseStats.BaseDamage;
     }
 
 
@@ -46,7 +51,7 @@ public class Ship : MonoBehaviour
     /// <returns>Ship fire rate</returns>
     public virtual float GetRateStat()
     {
-        return _baseStats.baseRate;
+        return _baseStats.BaseRate;
     }
 
 
@@ -56,7 +61,7 @@ public class Ship : MonoBehaviour
     /// <returns>Ship speed</returns>
     public virtual float GetSpeedStat()
     {
-        return _baseStats.baseSpeed;
+        return _baseStats.BaseSpeed;
     }
 
 
@@ -66,6 +71,6 @@ public class Ship : MonoBehaviour
     /// <returns>Ship vampirism</returns>
     public virtual float GetVampirismStat()
     {
-        return _baseStats.baseVampirism;
+        return _baseStats.BaseVampirism;
     }
 }

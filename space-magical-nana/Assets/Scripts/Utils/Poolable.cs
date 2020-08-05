@@ -10,6 +10,8 @@ using System;
 /// </summary>
 public class Poolable : MonoBehaviour
 {
+    private bool _pooled;
+
     /// <summary>
     /// This event is called when the object should be deleted
     /// </summary>
