@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3897e34625b00345a7a56480d55a5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialObjectCount: 20
+  initialObjectCount: 0
   pooledObject: {fileID: 8211656797694830744, guid: 7819df4ed9edb9e42b79d3d7665d149f,
     type: 3}
 --- !u!1 &1621841155
