@@ -12,7 +12,7 @@ public class ObjectPool : MonoBehaviour
     /// <summary>
     /// Stored objects
     /// </summary>
-    private Stack<GameObject> objects;
+    private Stack<Poolable> objects;
 
     /// <summary>
     /// how many objcts will be initially available. The pool will resize if more 
@@ -42,7 +42,7 @@ public class ObjectPool : MonoBehaviour
             );
 
         // Create & fill the object stack
-        objects = new Stack<GameObject>(initialObjectCount);
+        objects = new Stack<Poolable>(initialObjectCount);
         
         for (int i = 0; i < initialObjectCount; i++)
         {
@@ -52,9 +52,10 @@ public class ObjectPool : MonoBehaviour
             // get its poolable and subscribe to its event
             poolableComp = o.GetComponent<Poolable>();
             poolableComp.SubscribeDispose( Dispose );
+            poolableComp.pooled = true;
 
             // Push the object into the stack and deactivate it
-            objects.Push(o);
+            objects.Push(poolableComp);
             o.SetActive(false);
         }
     }
@@ -67,21 +68,29 @@ public class ObjectPool : MonoBehaviour
     {
         if (objects.Count > 0)
         {
-            var o = objects.Pop();
-            o.SetActive(true);
-            return o;
+            var poolable = objects.Pop();
+            poolable.gameObject.SetActive(true);
+            poolable.pooled = false;
+            return poolable.gameObject;
         }
 
-        return Instantiate(pooledObject);
+        // If there's not enough objects in the pool, create a new one.
+        var newObj = Instantiate(pooledObject);
+        var poolableComp = newObj.GetComponent<Poolable>();
+        poolableComp.SubscribeDispose(Dispose);
+        poolableComp.pooled = false;
+        return newObj;
     }
+
     /// <summary>
     /// Return a game object to the pool
     /// </summary>
     /// <param name="gameObject"> Object to return </param>
-    private void Dispose(GameObject gameObject)
+    private void Dispose(Poolable poolable)
     {
-        gameObject.SetActive(false);
-        objects.Push(gameObject);
+        poolable.gameObject.SetActive(false);
+        objects.Push(poolable);
+        poolable.pooled = true;
     }
 
 }
