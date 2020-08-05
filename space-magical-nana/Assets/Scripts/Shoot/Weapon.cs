@@ -33,6 +33,4 @@ public class Weapon : MonoBehaviour
         var bullet = bullets.Get();
         bullet.transform.position = transform.position + (Vector3) offset;
     }
-
-
 }
