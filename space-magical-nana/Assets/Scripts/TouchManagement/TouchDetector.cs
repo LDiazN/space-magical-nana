@@ -31,7 +31,8 @@ public class TouchDetector : MonoBehaviour
     /// Indicates if the touch already broke the movement treshold
     /// </summary>
     private bool brokeMovement;
-    private bool _isActive;
+    [SerializeField]
+    private bool _isActive = true;
 
 
     /// <summary>

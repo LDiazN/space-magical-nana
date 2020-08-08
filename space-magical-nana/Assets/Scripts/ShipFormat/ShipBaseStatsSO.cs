@@ -10,11 +10,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Base_Ship", menuName = "Ships/Base Ship", order = 0)]
 public class ShipBaseStatsSO : ScriptableObject
 {
-    public int baseHP;
-    public int baseDamage;
-    public float baseRate;
-    public float baseSpeed;
-    public float baseVampirism;
+    private int baseHP;
+    private int baseDamage;
+    private float baseRate;
+    private float baseSpeed;
+    private float baseVampirism;
+
+    public int BaseHP { get { return baseHP; } }
+    public int BaseDamage { get { return baseDamage; } }
+    public float BaseRate { get { return baseRate; } }
+    public float BaseSpeed { get { return baseSpeed; } }
+    public float BaseVampirism { get { return baseVampirism; } }
 }
 
 

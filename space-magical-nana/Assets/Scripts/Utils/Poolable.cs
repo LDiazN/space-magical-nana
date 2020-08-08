@@ -10,6 +10,8 @@ using System;
 /// </summary>
 public class Poolable : MonoBehaviour
 {
+    private bool _pooled;
+
     /// <summary>
     /// If the object is currently pooled
     /// </summary>
