@@ -6,12 +6,15 @@ using UnityEngine;
 public class SkillMetadata : ScriptableObject
 {
     [SerializeField]
-    private string description;
+    private string _description;
 
     [SerializeField]
-    private string skillName;
+    private string _skillName;
 
     [SerializeField]
-    private Sprite icon;
+    private Sprite _icon;
 
+    public string Description { get { return _description; } }
+    public string Name { get { return _skillName; } }
+    public Sprite Icon { get { return _icon; } }
 }
