@@ -32,7 +32,8 @@ public abstract class BaseSkill : MonoBehaviour
     public SkillMetadata MetaData { get { return _metadata; } }
 
     private bool CanStart() => !_inCD && !_inDuration;
-    
+
+    protected abstract void Init();
     protected abstract void DoSkill();
     protected abstract void StopSkill();
 
