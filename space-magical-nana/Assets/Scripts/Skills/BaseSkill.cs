@@ -6,4 +6,14 @@ public class BaseSkill : MonoBehaviour
 {
     [SerializeField]
     private SkillMetadata metadata;
+
+    public SkillMetadata Metadata
+    {
+        get
+        {
+            return metadata;
+        }
+    }
+
+
 }
