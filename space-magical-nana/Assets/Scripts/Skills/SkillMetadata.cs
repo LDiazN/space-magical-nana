@@ -11,8 +11,10 @@ public class SkillMetadata : ScriptableObject
     [SerializeField]
     private string _skillName;
 
+
     [SerializeField]
     private Sprite _icon;
+    public string SkillName { get { return SkillName; } }
 
     public string Description { get { return _description; } }
     public string Name { get { return _skillName; } }
