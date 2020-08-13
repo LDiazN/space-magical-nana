@@ -22,9 +22,9 @@ public class SamplePlayerControllerUI : MonoBehaviour
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Q))
             ShowSkillsUI();
-        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        else if (Input.GetKeyDown(KeyCode.E))
             HideSkillsUI();
 
         transform.Translate(input * speed * Time.fixedDeltaTime);

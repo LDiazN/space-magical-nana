@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PeaGatlin : BaseSkill
+public class PeaCannon : BaseSkill
 {
     protected override void DoSkill()
     {
-        Debug.Log("Traatatatatatata pea gatlin");
+        Debug.Log("BOOOM pea cannon");
     }
 
     protected override void Init()
     {
-        Debug.Log("Spinning pea gatlin");
+        Debug.Log("Charging pea Cannon");
     }
 
     protected override void StopSkill()
     {
-        Debug.Log("wow such overhead, much hot, very unusable");
+        Debug.Log("Pea Cannon Out of energy for a while");
     }
 }
