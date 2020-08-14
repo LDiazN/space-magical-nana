@@ -4,6 +4,7 @@ public class HealSkill : InstantSkill
 {
     [SerializeField]
     [Min(1)]
+    [Max(1)]
     private int _toHeal;
 
     private BaseHealthSystem _healthSystem;
