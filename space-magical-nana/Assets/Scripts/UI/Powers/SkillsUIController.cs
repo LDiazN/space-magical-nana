@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+using System;
 
 public class SkillsUIController : MonoBehaviour
 {
@@ -103,7 +105,7 @@ public class SkillsUIController : MonoBehaviour
             b.SetActive(false);                             // Deactivate the button
             b.transform.position = Vector3.zero;
 
-            buttonComp.onClick.AddListener(skill.ActivateSkill);
+            buttonComp.onClick.AddListener(TrySkill(skill.ActivateSkill, buttonComp));
 
             // Store the button data in the button list
             _skillButtons.Add(new SkillBtnData(Vector2.zero, buttonComp, skill));
@@ -193,7 +195,22 @@ public class SkillsUIController : MonoBehaviour
             btn => btn.component.transform.position = btn.position
         );
     
+    UnityAction TrySkill(Func<bool> func, Button btn)
+    {
+        void f()
+        {
+            if (!func())
+                SkillFailed(btn);
+        }
+
+        return f;
+    }
     
+    private void SkillFailed(Button btn)
+    {
+        Debug.Log("Skill not ready to use");
+    }
+
     // ---- Functions to animate the buttons ---- // 
     /// <summary>
     /// Animates the buttons so they fade in or fade out as specified

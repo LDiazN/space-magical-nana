@@ -9,13 +9,15 @@ public class PeaGatlin : BaseSkill
         Debug.Log("Traatatatatatata pea gatlin");
     }
 
-    protected override void Init()
+    protected override bool CanStart() => true;
+
+    public override void Init(GameObject g) => Debug.Log("initializing");
+
+    public override bool ActivateSkill()
     {
-        Debug.Log("Spinning pea gatlin");
+        DoSkill();
+        return true;
     }
 
-    protected override void StopSkill()
-    {
-        Debug.Log("wow such overhead, much hot, very unusable");
-    }
+
 }

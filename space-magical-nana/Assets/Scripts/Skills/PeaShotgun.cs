@@ -10,13 +10,13 @@ public class PeaShotgun : BaseSkill
         Debug.Log("Pump, chkch, pump, chkch, pea shotgun");
     }
 
-    protected override void Init()
-    {
-        Debug.Log("Loading those barrels pardner, pea shotgun");
-    }
+    protected override bool CanStart() => true;
 
-    protected override void StopSkill()
+    public override void Init(GameObject g) => Debug.Log("initializing");
+
+    public override bool ActivateSkill()
     {
-        Debug.Log("Oh no out of shells pea shotgun");
+        DoSkill();
+        return true;
     }
 }

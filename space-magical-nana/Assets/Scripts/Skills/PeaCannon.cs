@@ -9,13 +9,13 @@ public class PeaCannon : BaseSkill
         Debug.Log("BOOOM pea cannon");
     }
 
-    protected override void Init()
-    {
-        Debug.Log("Charging pea Cannon");
-    }
+    protected override bool CanStart() => true;
 
-    protected override void StopSkill()
+    public override void Init(GameObject g) => Debug.Log("initializing");
+
+    public override bool ActivateSkill()
     {
-        Debug.Log("Pea Cannon Out of energy for a while");
+        DoSkill();
+        return true;
     }
 }
