@@ -5,6 +5,10 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// This class controls how the skills UI behaves depending 
+/// on the number of skills, the player position on the screen.
+/// </summary>
 public class SkillsUIController : MonoBehaviour
 {
     /// <summary>
@@ -195,7 +199,20 @@ public class SkillsUIController : MonoBehaviour
             btn => btn.component.transform.position = btn.position
         );
     
-    UnityAction TrySkill(Func<bool> func, Button btn)
+    /// <summary>
+    /// A helpful wrapper to return a function that does a different thing
+    /// depending on if it's possible to perform the skill or not
+    /// </summary>
+    /// <param name="func"> 
+    ///     ActivateSkill function that returns true if it was
+    ///     possible to do the skill 
+    /// </param>
+    /// <param name="btn">
+    /// The Button component of the button that was touched to perform 
+    /// the skill
+    /// </param>
+    /// <returns></returns>
+    private UnityAction TrySkill(Func<bool> func, Button btn)
     {
         void f()
         {
@@ -206,6 +223,11 @@ public class SkillsUIController : MonoBehaviour
         return f;
     }
     
+    /// <summary>
+    /// This function is called whenever the inteends to 
+    /// use a skill that's not currently available
+    /// </summary>
+    /// <param name="btn"></param>
     private void SkillFailed(Button btn)
     {
         Debug.Log("Skill not ready to use");
