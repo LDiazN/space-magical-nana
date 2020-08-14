@@ -70,7 +70,7 @@ public class TouchDetector : MonoBehaviour
             foreach (Touch touch in Input.touches)
             {
                 TouchStatus status;
-                Debug.Log($"Touch time: {Time.time - startTime}");
+                //Debug.Log($"Touch time: {Time.time - startTime}");
 
                 switch (touch.phase)
                 {
@@ -98,7 +98,7 @@ public class TouchDetector : MonoBehaviour
                     case TouchPhase.Canceled:
                         if (TimeTreshold(startTime, Time.time) && MoveTreshold(startPos, touch.position) && !brokeMovement)
                         {
-                            Debug.Log("Is tap!");
+                            //Debug.Log("Is tap!");
                             status = TouchStatus.Tap;
                         }
                         else
@@ -108,7 +108,7 @@ public class TouchDetector : MonoBehaviour
                         break;
 
                     default:
-                        throw new Exception("WTF");
+                        throw new Exception("Impossible enum value");
                 }
                 final = new TouchInput(status, touch);
             }

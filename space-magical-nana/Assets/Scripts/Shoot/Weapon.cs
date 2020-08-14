@@ -7,11 +7,14 @@ using UnityEngine;
 /// </summary>
 public class Weapon : MonoBehaviour
 {
+    protected Ship _ship;
+
     /// <summary>
     /// Weapon metadata, such as name, description, icon
     /// </summary>
     [SerializeField]
     protected WeaponData metadata;
+
 
     /// <summary>
     /// Object pooler for this weapon bullets
@@ -19,18 +22,63 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     protected ObjectPool bullets;
 
+
     /// <summary>
     /// Position from the player where the bullet should spawn
     /// </summary>
     [SerializeField]
-    protected Vector2 offset;
+    protected Transform _spawnPos;
+
+
+    [SerializeField]
+    protected int _damage;
+
+
+    [SerializeField]
+    protected float _fireRate = 0.25f;
+    protected bool _inCD = false;
+    protected bool _shoot = false;
+    protected Coroutine _rateRoutine = null;
+
+
+    private void Awake()
+    {
+        _ship = GetComponentInParent<Ship>();
+    }
+
+
+    private void Start()
+    {
+        _damage = _ship.GetDamageStat();
+        _fireRate = _ship.GetRateStat();
+        _rateRoutine = StartCoroutine(FireRateCD());
+    }
+
+
+    private IEnumerator FireRateCD()
+    {
+        while (true)
+        {
+            _inCD = true;
+            yield return new WaitForSeconds(_fireRate);
+            _inCD = false;
+            yield return new WaitUntil(() => _shoot);
+            _shoot = false;
+        }
+    }
+
 
     /// <summary>
     /// The shooting function
     /// </summary>
     public virtual void Shoot()
     {
-        var bullet = bullets.Get();
-        bullet.transform.position = transform.position + (Vector3) offset;
+        if (_inCD)
+            return;
+
+        GameObject bullet = bullets.Get();
+        // MUST CHANGE
+        bullet.GetComponent<Bullet>().SpawnBullet(_spawnPos.position, _spawnPos.up, _damage, null);
+        _shoot = true;
     }
 }

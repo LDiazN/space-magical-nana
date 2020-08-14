@@ -31,30 +31,34 @@ public class PlayerMovementController : MonoBehaviour
     {
         // We're only interested in a single touch, so we use 
         // only the first touch 
-        if (Input.touchCount > 0)
-        {
-            Touch touchInfo = Input.GetTouch(0);
-            ManageTouch(touchInfo);
-        }
-        else
-            movingEntity.Stop();
+        //if (Input.touchCount > 0)
+        //{
+        //    Touch touchInfo = Input.GetTouch(0);
+        //    ManageTouch(touchInfo);
+        //}
+        //else
+        //    movingEntity.Stop();
     }
 
-    private void ManageTouch(in Touch touchInfo)
+    private void ManageTouch(in TouchInput input)
     {
-        switch (touchInfo.phase)
+        if (input.type != TouchStatus.None)
         {
-            case TouchPhase.Began:
-            case TouchPhase.Moved:
-            case TouchPhase.Stationary:
-                MovePlayer(touchInfo);
-                break;
-            case TouchPhase.Ended:
-            case TouchPhase.Canceled:
-                movingEntity.Stop();
-                break;
-            default:
-                break;
+            Touch touchInfo = (Touch)input.touch;
+            switch (touchInfo.phase)
+            {
+                case TouchPhase.Began:
+                case TouchPhase.Moved:
+                case TouchPhase.Stationary:
+                    MovePlayer(touchInfo);
+                    break;
+                case TouchPhase.Ended:
+                case TouchPhase.Canceled:
+                    movingEntity.Stop();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
