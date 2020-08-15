@@ -9,6 +9,9 @@ using UnityEngine;
 /// </summary>
 public class TouchDetector : MonoBehaviour
 {
+    private bool _dirtyTouch = false;
+    private TouchInput _calculated;
+
     /// <summary>
     /// How much time can pass before a touch is
     /// not considered a tap.
@@ -24,26 +27,103 @@ public class TouchDetector : MonoBehaviour
     [Min(0f)]
     private float _moveTreshold = 0.1f;
     
-    private float startTime;
-    private Vector3 startPos;
+    private float _startTime;
+    private Vector3 _startPos;
     
     /// <summary>
     /// Indicates if the touch already broke the movement treshold
     /// </summary>
-    private bool brokeMovement;
-    [SerializeField]
-    private bool _isActive = true;
+    private bool _brokeMovement;
+
+    public delegate void receiveInput(TouchInput input);
+    public event receiveInput InputReceived;
+
+
+    private void Start()
+    {
+        #if UNITY_EDITOR
+        InputReceived += PrintStatus;
+        #endif
+    }
+
+
+    private void Update()
+    {
+        InputReceived?.Invoke(ProcessInput());
+    }
+
+
+    private void LateUpdate()
+    {
+        _dirtyTouch = false;
+    }
+
+
+    public TouchInput ProcessInput()
+    {
+        if (_dirtyTouch)
+            return _calculated;
+
+        Touch touch;
+        TouchStatus status = TouchStatus.None;
+
+        if (Input.touches.Length > 0)
+        {
+            touch = Input.GetTouch(0);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    _brokeMovement = false;
+                    _startTime = Time.time;
+                    _startPos = touch.position;
+                    status = TouchStatus.Undefined;
+                    break;
+
+                case TouchPhase.Moved:
+                case TouchPhase.Stationary:
+                    if (!MoveTreshold(_startPos, touch.position))
+                    {
+                        _brokeMovement = true;
+                        status = TouchStatus.Continuous;
+                    }
+                    else if (!TimeTreshold(_startTime, Time.time) || _brokeMovement)
+                        status = TouchStatus.Continuous;
+                    else
+                        status = TouchStatus.Undefined;
+                    break;
+
+                case TouchPhase.Ended:
+                case TouchPhase.Canceled:
+                    if (TimeTreshold(_startTime, Time.time) && MoveTreshold(_startPos, touch.position))
+                        status = TouchStatus.Tap;
+                    else
+                        status = TouchStatus.Continuous;
+
+                    _brokeMovement = false;
+                    break;
+
+                default:
+                    throw new Exception("Impossible enum value");
+            }
+            _calculated = new TouchInput(status, touch);
+        }
+        else
+            _calculated = new TouchInput(status, null);
+
+        _dirtyTouch = true;
+        return _calculated;
+    }
 
 
     /// <summary>
-    /// Checks if the touch is till in the move treshold.
+    /// Checks if the touch is still in the move treshold.
     /// </summary>
     /// <param name="start">Touch start position</param>
     /// <param name="actual">Touch actual position</param>
     /// <returns>true if the touch is still in the movement treshold/false otherwise</returns>
     public bool MoveTreshold(in Vector3 start, in Vector3 actual)
     {
-        return Vector3.SqrMagnitude(actual - startPos) < _moveTreshold * _moveTreshold;
+        return Vector3.SqrMagnitude(actual - _startPos) < _moveTreshold * _moveTreshold;
     }
 
 
@@ -59,63 +139,18 @@ public class TouchDetector : MonoBehaviour
     }
 
 
-    private void Update()
+    private void ChangeActiveStatus(bool status)
     {
-        if (!_isActive)
-            return;
-
-        TouchInput final;
-        if (Input.touchCount > 0)
-        {
-            foreach (Touch touch in Input.touches)
-            {
-                TouchStatus status;
-                //Debug.Log($"Touch time: {Time.time - startTime}");
-
-                switch (touch.phase)
-                {
-                    case TouchPhase.Began:
-                        brokeMovement = false;
-                        startTime = Time.time;
-                        startPos = touch.position;
-                        status = TouchStatus.Undefined;
-                        break;
-
-                    case TouchPhase.Moved:
-                    case TouchPhase.Stationary:
-                        if (MoveTreshold(startPos, touch.position))
-                        {
-                            brokeMovement = true;
-                            status = TouchStatus.Continuous;
-                        }
-                        else if (TimeTreshold(startTime, Time.time) || brokeMovement)
-                            status = TouchStatus.Continuous;
-                        else
-                            status = TouchStatus.Undefined;
-                        break;
-
-                    case TouchPhase.Ended:
-                    case TouchPhase.Canceled:
-                        if (TimeTreshold(startTime, Time.time) && MoveTreshold(startPos, touch.position) && !brokeMovement)
-                        {
-                            //Debug.Log("Is tap!");
-                            status = TouchStatus.Tap;
-                        }
-                        else
-                            status = TouchStatus.Continuous;
-
-                        brokeMovement = false;
-                        break;
-
-                    default:
-                        throw new Exception("Impossible enum value");
-                }
-                final = new TouchInput(status, touch);
-            }
-        }
-        else
-            final = new TouchInput(TouchStatus.None, null);
+        enabled = status;
     }
+
+
+#if UNITY_EDITOR
+    private void PrintStatus(TouchInput input)
+    {
+        Debug.Log(Enum.GetName(typeof(TouchStatus), input.type));
+    }
+#endif
 }
 
 
