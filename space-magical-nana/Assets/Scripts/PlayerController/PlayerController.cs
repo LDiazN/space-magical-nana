@@ -7,7 +7,8 @@ using System;
 /// This class controls the flow of the main player ship,
 /// so this is a wrapper for all its individual components and subsystems
 /// </summary>
-[RequireComponent(typeof(MovingEntity), typeof(TouchDetector))]
+[RequireComponent(typeof(MovingEntity), typeof(TouchDetector), typeof(WeaponManager))]
+[RequireComponent(typeof(Ship))] // The ship component that manage Ship stats information 
 public class PlayerController : MonoBehaviour
 {
     // -- Self Components --------------------
@@ -21,6 +22,11 @@ public class PlayerController : MonoBehaviour
     /// Required to get the input state
     /// </summary>
     private TouchDetector _detector;
+
+    /// <summary>
+    /// Object to manage shooting 
+    /// </summary>
+    private WeaponManager _weaponManager;
 
     // -- Editor Fields ----------------------
 
@@ -62,6 +68,7 @@ public class PlayerController : MonoBehaviour
         // Initializing self components:
         _movingEntity = GetComponent<MovingEntity>();
         _detector = GetComponent<TouchDetector>();
+        _weaponManager = GetComponent<WeaponManager>();
     }
 
     private void Update()
@@ -71,6 +78,8 @@ public class PlayerController : MonoBehaviour
 
         // Perform every subsystem actions
         Movement();
+        Attack();
+        
 
     }
 
@@ -78,7 +87,10 @@ public class PlayerController : MonoBehaviour
 
     // -- Subsystems -------------------------
 
-    private void UpdateState()
+    /// <summary>
+    /// Update the current player state and other stateful information 
+    /// </summary>
+    protected virtual void UpdateState()
     {
         var inputState = _detector.ProcessInput();
 
@@ -98,15 +110,13 @@ public class PlayerController : MonoBehaviour
                     OnEnteringSlowMo();
                 }
                 break;
-        }
-
-           
+        }  
     }
 
     /// <summary>
     /// Manage the movement logic and use the movingEntity component
     /// </summary>
-    private void Movement()
+    protected virtual void Movement()
     {
         if (state != PlayerState.Firing)
         {
@@ -128,14 +138,27 @@ public class PlayerController : MonoBehaviour
         _movingEntity.MovePosition(worldPosition);
     }
 
+    protected virtual void Attack()
+    {
+        if (state != PlayerState.Firing)
+            return;
+
+        _weaponManager.Shoot();
+    }
 
     // -- Aux Functions ---------------------------------
 
+    /// <summary>
+    /// Call the EnteringSlowMo event
+    /// </summary>
     private void OnEnteringSlowMo()
     {
         EnteringSlowMo();
     }
 
+    /// <summary>
+    /// Call the EnteringFiring event
+    /// </summary>
     private void OnEnteringFiring()
     {
         EnteringFiring();

@@ -12,7 +12,7 @@ public class WeaponManager : MonoBehaviour
     /// List of weapons holded by this object
     /// </summary>
     [SerializeField]
-    private List<Weapon> weapons;
+    private List<Weapon> _weapons;
 
     /// <summary>
     /// Current weapon available to shoot
@@ -22,30 +22,31 @@ public class WeaponManager : MonoBehaviour
     /// <summary>
     /// Number of available weapons
     /// </summary>
-    public int nWeapons => weapons.Count;
+    public int nWeapons => _weapons.Count;
 
     private void Start()
     {
-        currentWeapon = weapons.Count > 0 ? weapons[0] : null; // Init the current weapon
+        currentWeapon = _weapons.Count > 0 ? _weapons[0] : null; // Init the current weapon
     }
 
     /// <summary>
     /// Interface function to call the the shoot method for the 
-    /// currently selected weapon
+    /// currently selected weapon. If there's no current weapon, 
+    /// shoot wont do anything
     /// </summary>
-    public void Shoot() => currentWeapon.Shoot();
+    public void Shoot() => currentWeapon?.Shoot();
 
     /// <summary>
     /// Add a weapon to the available weapons
     /// </summary>
     /// <param name="weapon"> Weapon to delete </param>
-    public void AddWeapon(Weapon weapon) => weapons.Add(weapon); 
+    public void AddWeapon(Weapon weapon) => _weapons.Add(weapon); 
 
     /// <summary>
     /// Remove the weapon from the available weapons
     /// </summary>
     /// <param name="weapon"> The weapon to remove </param>
-    public void RemoveWeapon(Weapon weapon) => weapons.Remove(weapon);
+    public void RemoveWeapon(Weapon weapon) => _weapons.Remove(weapon);
 
     /// <summary>
     /// Remove the weapon from the available weapons
@@ -53,10 +54,10 @@ public class WeaponManager : MonoBehaviour
     /// <param name="weaponIndex"> The index of the weapon to be deleted </param>
     public void RemoveWeapon(int weaponIndex)
     {
-        if (weaponIndex < 0 || weaponIndex >= weapons.Count)
+        if (weaponIndex < 0 || weaponIndex >= _weapons.Count)
             return;
         
-        weapons.RemoveAt(weaponIndex);
+        _weapons.RemoveAt(weaponIndex);
     }
 
     /// <summary>
@@ -73,10 +74,10 @@ public class WeaponManager : MonoBehaviour
     /// <param name="weaponIndex"> Index of the weapon to change </param>
     public void SwapWeapon(int weaponIndex)
     {
-        if (weaponIndex < 0 || weaponIndex >= weapons.Count )
+        if (weaponIndex < 0 || weaponIndex >= _weapons.Count )
             throw new NullReferenceException("Asking for a weapon out of the weapon array");
         
-        currentWeapon = weapons[weaponIndex];
+        currentWeapon = _weapons[weaponIndex];
     }
 
 }

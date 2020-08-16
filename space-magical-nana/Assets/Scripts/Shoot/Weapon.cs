@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Weapon : MonoBehaviour
 {
+    [SerializeField]
     protected Ship _ship;
 
     /// <summary>
@@ -56,6 +57,11 @@ public class Weapon : MonoBehaviour
         _damage = _ship.GetDamageStat();
         _fireRate = _ship.GetRateStat();
         _rateRoutine = StartCoroutine(FireRateCD());
+
+        if (_spawnPos == null || _spawnPos.Length == 0)
+            throw new System.ArgumentException(
+                "Not a valid Transform array specified. It can't be null or zero length."
+                );
     }
 
 

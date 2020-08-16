@@ -12,7 +12,7 @@ public class ObjectPool : MonoBehaviour
     /// <summary>
     /// Stored objects
     /// </summary>
-    private Stack<Poolable> objects;
+    private Stack<Poolable> _objects;
 
     /// <summary>
     /// how many objcts will be initially available. The pool will resize if more 
@@ -24,14 +24,14 @@ public class ObjectPool : MonoBehaviour
     /// Object to replicate
     /// </summary>
     [SerializeField]
-    private GameObject pooledObject;
+    private GameObject _pooledObject;
 
     void Awake()
     {
         // Check if the given gameobject is a valid one
-        var poolableComp = pooledObject?.GetComponent<Poolable>();
+        var poolableComp = _pooledObject?.GetComponent<Poolable>();
 
-        if (pooledObject == null)
+        if (_pooledObject == null)
             throw new ArgumentNullException(
                 "The given pooled object is null, it should be set to an object " +
                 "with a Poolable component"
@@ -42,12 +42,12 @@ public class ObjectPool : MonoBehaviour
             );
 
         // Create & fill the object stack
-        objects = new Stack<Poolable>(initialObjectCount);
+        _objects = new Stack<Poolable>(initialObjectCount);
         
         for (int i = 0; i < initialObjectCount; i++)
         {
             // Create the object
-            var o = Instantiate(pooledObject);
+            var o = Instantiate(_pooledObject);
 
             // get its poolable and subscribe to its event
             poolableComp = o.GetComponent<Poolable>();
@@ -55,7 +55,7 @@ public class ObjectPool : MonoBehaviour
             poolableComp.pooled = true;
 
             // Push the object into the stack and deactivate it
-            objects.Push(poolableComp);
+            _objects.Push(poolableComp);
             o.SetActive(false);
         }
     }
@@ -66,16 +66,16 @@ public class ObjectPool : MonoBehaviour
     /// <returns> A game object from the pool </returns>
     public GameObject Get()
     {
-        if (objects.Count > 0)
+        if (_objects.Count > 0)
         {
-            var poolable = objects.Pop();
+            var poolable = _objects.Pop();
             poolable.gameObject.SetActive(true);
             poolable.pooled = false;
             return poolable.gameObject;
         }
 
         // If there's not enough objects in the pool, create a new one.
-        var newObj = Instantiate(pooledObject);
+        var newObj = Instantiate(_pooledObject);
         var poolableComp = newObj.GetComponent<Poolable>();
         poolableComp.SubscribeDispose(Dispose);
         poolableComp.pooled = false;
@@ -89,7 +89,7 @@ public class ObjectPool : MonoBehaviour
     private void Dispose(Poolable poolable)
     {
         poolable.gameObject.SetActive(false);
-        objects.Push(poolable);
+        _objects.Push(poolable);
         poolable.pooled = true;
     }
 
