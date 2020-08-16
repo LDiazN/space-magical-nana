@@ -2,29 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
-//[CustomEditor(typeof(Weapon))]
-public class WeaponEditor : Editor
+[CustomPropertyDrawer(typeof(SingleLayerAttribute))]
+public class SingleLayerDrawer : PropertyDrawer
 {
-    SerializedProperty mask;
-
-    private void OnEnable()
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        mask = serializedObject.FindProperty("_targetLayer");
-    }
+        int oldValue = property.intValue;
+        EditorGUI.BeginProperty(position, label, property);
 
-    public override void OnInspectorGUI()
-    {
-        //base.OnInspectorGUI();
+        property.intValue = EditorGUI.MaskField(position, label, property.intValue, LayersNames());
 
-        mask.intValue = EditorGUILayout.MaskField(mask.intValue, LayersNames());
+        if (!IsPowerOfTwo(property.intValue))
+        {
+            property.intValue = oldValue;
+        }
+        else if (property.intValue != 0)
+        {
+            oldValue = property.intValue;
+            Debug.Log(GetRealLayer(CalculateFakeIndex(property.intValue), LayersNames()));
+        }
 
-        if (!IsPowerOfTwo(mask.intValue))
-            return;
-        else if (mask.intValue != 0)
-            Debug.Log(GetRealLayer(CalculateFakeIndex(mask.intValue), LayersNames()));
-
-        serializedObject.ApplyModifiedProperties();
+        EditorGUI.EndProperty();
     }
 
     public bool IsPowerOfTwo(int number)

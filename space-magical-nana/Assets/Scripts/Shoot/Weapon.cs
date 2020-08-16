@@ -22,7 +22,6 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     protected ObjectPool bullets;
 
-
     /// <summary>
     /// Position from the player where the bullet should spawn
     /// </summary>
@@ -35,6 +34,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     protected int _damage;
     [SerializeField]
+    [SingleLayer]
     private LayerMask _bulletLayer;
 
 
@@ -96,7 +96,7 @@ public class Weapon : MonoBehaviour
     {
         Transform gunTrans = _spawnPos[_currentGun];
         GameObject bullet = bullets.Get();
-        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer.value,  null);
+        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer.value, null);
     }
 
 
