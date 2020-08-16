@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class Taser : Weapon
 {
-    public override void Shoot()
+    protected override void ShootAGun(int gun)
     {
         Debug.Log("Tsszzzt tzzst");
     }

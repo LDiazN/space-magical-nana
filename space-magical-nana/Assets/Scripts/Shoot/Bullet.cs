@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public void SpawnBullet(Vector2 pos, Vector2 dir, int damage, Collider2D shooter = null)
+    public void SpawnBullet(Vector2 pos, Vector2 dir, int damage, int layer, Collider2D shooter = null)
     {
         enabled = true;
 
@@ -52,6 +52,7 @@ public class Bullet : MonoBehaviour
 
         _damage = damage;
         transform.position = pos;
+        gameObject.layer = layer;
         _velocity = dir.normalized * _speed;
         gameObject.SetActive(true);
         _shooterCheck = StartCoroutine(DistanceCheck());

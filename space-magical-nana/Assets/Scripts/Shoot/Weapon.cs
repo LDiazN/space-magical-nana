@@ -27,11 +27,15 @@ public class Weapon : MonoBehaviour
     /// Position from the player where the bullet should spawn
     /// </summary>
     [SerializeField]
-    protected Transform _spawnPos;
-
+    protected Transform[] _spawnPos;
+    private int _currentGun = 0;
+    [SerializeField]
+    private bool _simultaneous;
 
     [SerializeField]
     protected int _damage;
+    [SerializeField]
+    private LayerMask _bulletLayer;
 
 
     [SerializeField]
@@ -71,14 +75,34 @@ public class Weapon : MonoBehaviour
     /// <summary>
     /// The shooting function
     /// </summary>
-    public virtual void Shoot()
+    public void Shoot()
     {
         if (_inCD)
             return;
 
-        GameObject bullet = bullets.Get();
-        // MUST CHANGE
-        bullet.GetComponent<Bullet>().SpawnBullet(_spawnPos.position, _spawnPos.up, _damage, null);
+        if (!_simultaneous)
+        {
+            ShootAGun(_currentGun);
+            _currentGun = (_currentGun + 1) % _spawnPos.Length;
+        }
+        else
+            ShootAllGuns();
+
         _shoot = true;
+    }
+
+
+    protected virtual void ShootAGun(int gun)
+    {
+        Transform gunTrans = _spawnPos[_currentGun];
+        GameObject bullet = bullets.Get();
+        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer.value,  null);
+    }
+
+
+    private void ShootAllGuns()
+    {
+        for (_currentGun = 0; _currentGun < _spawnPos.Length; ++_currentGun)
+            ShootAGun(_currentGun);
     }
 }
