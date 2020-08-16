@@ -11,7 +11,7 @@ using UnityEngine;
 public class MovingEntity : BaseMovingEntity
 {
     // -- Self components ----------------
-    private Rigidbody2D rb2d;
+    private Rigidbody2D _rb2d;
     // -----------------------------------
 
 
@@ -32,21 +32,24 @@ public class MovingEntity : BaseMovingEntity
     // -- Private Variables --------------
 
     // Current entity velocity
-    private Vector2 velocity = Vector2.zero;
+    private Vector2 _velocity = Vector2.zero;
+
+    // An accesor to velocity private variable
+    public Vector2 Velocity { get { return _velocity; } }
 
     // -----------------------------------
 
     private void Start()
     {
         // init rigidbody
-        rb2d = GetComponent<Rigidbody2D>();
+        _rb2d = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        rb2d.MovePosition( 
+        _rb2d.MovePosition( 
                 (Vector2) transform.position  + 
-                velocity * Time.fixedDeltaTime 
+                _velocity * Time.fixedDeltaTime 
         );
     }
 
@@ -55,19 +58,19 @@ public class MovingEntity : BaseMovingEntity
     /// </summary>
     /// <param name="position"> World position to move at </param>
     public void MovePosition(in Vector2 position) =>
-        velocity = Vector2.ClampMagnitude((position - (Vector2)transform.position) * acceleration, maxSpeed);
+        _velocity = Vector2.ClampMagnitude((position - (Vector2)transform.position) * acceleration, maxSpeed);
+
     /// <summary>
     /// Set the current speed to 0
     /// </summary>
-    public void Stop() => velocity = Vector2.zero;
+    public void Stop() => _velocity = Vector2.zero;
 
-    // -- Abstract methods ---------------------
 
     public override void SetMaxSpeed(float newSpeed) => maxSpeed = newSpeed;
 
     public override float GetMaxSpeed() => maxSpeed;
 
-    public override Vector2 GetVelocity() => velocity;
+    public override Vector2 GetVelocity() => _velocity;
 
 
 
