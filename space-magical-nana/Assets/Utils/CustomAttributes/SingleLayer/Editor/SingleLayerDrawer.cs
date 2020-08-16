@@ -21,7 +21,7 @@ public class SingleLayerDrawer : PropertyDrawer
         else if (property.intValue != 0)
         {
             oldValue = property.intValue;
-            Debug.Log(GetRealLayer(CalculateFakeIndex(property.intValue), LayersNames()));
+            //Debug.Log(GetRealLayer(CalculateFakeIndex(property.intValue), LayersNames()));
         }
 
         EditorGUI.EndProperty();
