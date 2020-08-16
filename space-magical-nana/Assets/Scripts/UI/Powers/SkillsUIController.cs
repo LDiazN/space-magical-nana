@@ -15,7 +15,7 @@ public class SkillsUIController : MonoBehaviour
     /// The player controller, so the ui can get info about the player
     /// </summary>
     [SerializeField]
-    private SamplePlayerControllerUI _playerController; //@TODO we have to change this for the actual controller
+    private PlayerController _playerController; //@TODO we have to change this for the actual controller
 
     /// <summary>
     /// Just to handle alpha in the UI
@@ -41,21 +41,21 @@ public class SkillsUIController : MonoBehaviour
     /// </summary>
     [SerializeField]
     [Min(0f)]
-    private float _buttonsOffset = 10f;
+    private float _buttonsOffset = 45f;
 
     /// <summary>
     /// distance from the player for the buttons to spawn
     /// </summary>
     [SerializeField]
     [Min(0f)]
-    private float _radius = 2f;
+    private float _radius = 100f;
 
     /// <summary>
     /// How much time for the animation to end
     /// </summary>
     [SerializeField]
     [Min(0f)]
-    private float _animationTime = 1f;
+    private float _animationTime = 0.02f;
 
     /// <summary>
     /// Just a handy way to store all the data for a single UI
@@ -85,13 +85,13 @@ public class SkillsUIController : MonoBehaviour
             _buttonsOffset = Mathf.Clamp(_buttonsOffset, 0, 360);
 
         // The only thing we do with player controller: subscribe to its signals
-        _playerController.ShowSkillsUI += OnShowSkillUI;
-        _playerController.HideSkillsUI += OnHideSkillUI;
+        _playerController.EnteringSlowMo += OnShowSkillUI;
+        _playerController.EnteringFiring += OnHideSkillUI;
 
         // Check if the button contains a button component
         if (_button.GetComponent<Button>() == null)
         {
-            throw new System.ArgumentException(
+            throw new ArgumentException(
                     "Unvalid button template for SkillsUIController: " +
                     "The given game object is not a button object. Please " +
                     "add a game object with a button component attached to it."
