@@ -9,7 +9,7 @@ using UnityEngine;
 public class SamplePlayerController : MonoBehaviour
 {
 
-    private WeaponManager wm;
+    private WeaponManager wm;  
 
     private void Start()
     {

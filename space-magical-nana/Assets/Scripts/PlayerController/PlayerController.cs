@@ -10,7 +10,7 @@ using System;
 [RequireComponent(typeof(MovingEntity), typeof(TouchDetector), typeof(WeaponManager))]
 [RequireComponent(typeof(Ship))] // The ship component that manage Ship stats information 
 public class PlayerController : MonoBehaviour
-{
+{ 
     // -- Self Components --------------------
 
     /// <summary>

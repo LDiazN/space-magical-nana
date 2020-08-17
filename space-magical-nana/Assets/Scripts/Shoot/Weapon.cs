@@ -102,8 +102,16 @@ public class Weapon : MonoBehaviour
     {
         Transform gunTrans = _spawnPos[_currentGun];
         GameObject bullet = bullets.Get();
-        var layer = Mathf.Log(_bulletLayer.value, 2);
-        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer, transform);
+        int l = (int)Mathf.Log(_bulletLayer.value, 2);
+        Debug.Log("Mask: " + l);
+
+        bullet.GetComponent<Bullet>().SpawnBullet(
+            gunTrans.position, 
+            gunTrans.up, 
+            _damage, 
+            (int) Mathf.Log(_bulletLayer,2)
+            , transform
+        );
     }
 
 
