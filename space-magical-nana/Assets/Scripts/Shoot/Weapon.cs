@@ -55,8 +55,11 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        _damage = _ship.GetDamageStat();
-        _fireRate = _ship.GetRateStat();
+        if (_ship != null)
+        {
+            _damage = _ship.GetDamageStat();
+            _fireRate = _ship.GetRateStat();
+        }
         _rateRoutine = StartCoroutine(FireRateCD());
 
         if (_spawnPos == null || _spawnPos.Length == 0)

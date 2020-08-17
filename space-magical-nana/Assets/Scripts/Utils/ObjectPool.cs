@@ -88,7 +88,6 @@ public class ObjectPool : MonoBehaviour
     /// <param name="gameObject"> Object to return </param>
     private void Dispose(Poolable poolable)
     {
-        poolable.gameObject.SetActive(false);
         _objects.Push(poolable);
         poolable.pooled = true;
     }

@@ -40,19 +40,19 @@ public class Bullet : MonoBehaviour
 
     public void SpawnBullet(Vector2 pos, Vector2 dir, int damage, int layer, Transform shooter = null)
     {
+        _damage = damage;
+        transform.position = pos;
+        gameObject.layer = layer;
+        _velocity = dir.normalized * _speed;
+        
         enabled = true;
+        gameObject.SetActive(true);
 
         if (shooter != null)
         {
             _lastShooter = shooter;
             _shooterCheck = StartCoroutine(DistanceCheck());
         }
-        
-        _damage = damage;
-        transform.position = pos;
-        gameObject.layer = layer;
-        _velocity = dir.normalized * _speed;
-        gameObject.SetActive(true);
     }
 
 
@@ -66,10 +66,12 @@ public class Bullet : MonoBehaviour
             StopCoroutine(_shooterCheck);
             _shooterCheck = null;
         }
-        _poolable.Dispose();
-        
+
         // Call animation or something
+        gameObject.SetActive(false);
         enabled = false;
+
+        _poolable.Dispose();
     }
 
 
@@ -85,7 +87,6 @@ public class Bullet : MonoBehaviour
             for (int i = 0; i < 10; ++i)
                 yield return null;
         }
-        yield break;
     }
 
 
