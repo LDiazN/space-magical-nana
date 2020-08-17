@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D _rb2d;
     private Collider2D _coll2d;
-    private Poolable _pool;
+    private Poolable _poolable;
 
     [SerializeField]
     [Min(0)]
@@ -34,6 +34,7 @@ public class Bullet : MonoBehaviour
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _coll2d = GetComponent<Collider2D>();
+        _poolable = GetComponent<Poolable>();
     }
 
 
@@ -65,7 +66,7 @@ public class Bullet : MonoBehaviour
             StopCoroutine(_shooterCheck);
             _shooterCheck = null;
         }
-        _pool.Dispose();
+        _poolable.Dispose();
         
         // Call animation or something
         enabled = false;

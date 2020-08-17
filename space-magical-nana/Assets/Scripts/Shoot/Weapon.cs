@@ -48,7 +48,8 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        _ship = GetComponentInParent<Ship>();
+        if (_ship == null)
+            _ship = GetComponentInParent<Ship>();
     }
 
 
@@ -102,14 +103,8 @@ public class Weapon : MonoBehaviour
     {
         Transform gunTrans = _spawnPos[_currentGun];
         GameObject bullet = bullets.Get();
-        
-        bullet.GetComponent<Bullet>().SpawnBullet(
-            gunTrans.position, 
-            gunTrans.up, 
-            _damage, 
-            (int) Mathf.Log(_bulletLayer,2)
-            , transform
-        );
+        int layer = (int)Mathf.Log(_bulletLayer.value, 2);
+        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, layer, transform);
     }
 
 

@@ -10,10 +10,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Base_Ship", menuName = "Ships/Base Ship", order = 0)]
 public class ShipBaseStatsSO : ScriptableObject
 {
+    [SerializeField]
     private int baseHP;
+    [SerializeField]
     private int baseDamage;
+    [SerializeField]
     private float baseRate;
+    [SerializeField]
     private float baseSpeed;
+    [SerializeField]
     private float baseVampirism;
 
     public int BaseHP { get { return baseHP; } }
