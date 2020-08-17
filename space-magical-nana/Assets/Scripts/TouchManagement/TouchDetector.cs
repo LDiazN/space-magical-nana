@@ -148,7 +148,7 @@ public class TouchDetector : MonoBehaviour
 #if UNITY_EDITOR
     private void PrintStatus(TouchInput input)
     {
-        Debug.Log(Enum.GetName(typeof(TouchStatus), input.type));
+        //Debug.Log(Enum.GetName(typeof(TouchStatus), input.type));
     }
 #endif
 }

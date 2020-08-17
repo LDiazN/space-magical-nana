@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
 
         if (_spawnPos == null || _spawnPos.Length == 0)
             throw new System.ArgumentException(
-                "Not a valid Transform array specified. It can't be null or zero length."
+                "Unvalid spawn positions. Spawn positions should not be null or zero length"
                 );
     }
 
@@ -102,7 +102,10 @@ public class Weapon : MonoBehaviour
     {
         Transform gunTrans = _spawnPos[_currentGun];
         GameObject bullet = bullets.Get();
-        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer.value, null);
+        var layer = Mathf.Log(_bulletLayer.value, 2);
+                                          // Cuando entra a la funcion explota con esta variable
+                                                                                          // vvvvvvvvv
+        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer, null);
     }
 
 

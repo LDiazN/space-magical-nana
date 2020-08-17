@@ -81,8 +81,8 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator DistanceCheck()
     {
-        while (true)
-        {
+        while (true)                                // Aqui hay un null reference
+        {                                           // vvvvvvvvv
             if (Vector2.Distance(transform.position, _lastShooter.transform.position) >= _maxSeparation)
             {
                 DestroyBullet();
