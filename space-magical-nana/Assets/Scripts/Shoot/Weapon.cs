@@ -102,9 +102,7 @@ public class Weapon : MonoBehaviour
     {
         Transform gunTrans = _spawnPos[_currentGun];
         GameObject bullet = bullets.Get();
-        int l = (int)Mathf.Log(_bulletLayer.value, 2);
-        Debug.Log("Mask: " + l);
-
+        
         bullet.GetComponent<Bullet>().SpawnBullet(
             gunTrans.position, 
             gunTrans.up, 
