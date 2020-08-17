@@ -103,9 +103,7 @@ public class Weapon : MonoBehaviour
         Transform gunTrans = _spawnPos[_currentGun];
         GameObject bullet = bullets.Get();
         var layer = Mathf.Log(_bulletLayer.value, 2);
-                                          // Cuando entra a la funcion explota con esta variable
-                                                                                          // vvvvvvvvv
-        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer, null);
+        bullet.GetComponent<Bullet>().SpawnBullet(gunTrans.position, gunTrans.up, _damage, _bulletLayer, transform);
     }
 
 

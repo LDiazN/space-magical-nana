@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
     private Vector2 _velocity;
 
 
-    private Collider2D _lastShooter;
+    private Transform _lastShooter;
     [Min(0.1f)]
     public float _maxSeparation = 15f;
 
@@ -37,35 +37,28 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public void SpawnBullet(Vector2 pos, Vector2 dir, int damage, int layer, Collider2D shooter = null)
+    public void SpawnBullet(Vector2 pos, Vector2 dir, int damage, int layer, Transform shooter = null)
     {
         enabled = true;
 
         if (shooter != null)
         {
-            if (_lastShooter != null)
-                Physics2D.IgnoreCollision(_coll2d, _lastShooter, false);
-
-            Physics2D.IgnoreCollision(_coll2d, shooter);
             _lastShooter = shooter;
+            _shooterCheck = StartCoroutine(DistanceCheck());
         }
-
+        
         _damage = damage;
         transform.position = pos;
         gameObject.layer = layer;
         _velocity = dir.normalized * _speed;
         gameObject.SetActive(true);
-        _shooterCheck = StartCoroutine(DistanceCheck());
     }
 
 
     private void DestroyBullet()
     {
         if (_lastShooter != null)
-        {
-            Physics2D.IgnoreCollision(_coll2d, _lastShooter, false);
             _lastShooter = null;
-        }
 
         if (_shooterCheck != null)
         {
@@ -81,9 +74,9 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator DistanceCheck()
     {
-        while (true)                                // Aqui hay un null reference
-        {                                           // vvvvvvvvv
-            if (Vector2.Distance(transform.position, _lastShooter.transform.position) >= _maxSeparation)
+        while (true)
+        {
+            if (Vector2.Distance(transform.position, _lastShooter.position) >= _maxSeparation)
             {
                 DestroyBullet();
                 break;
