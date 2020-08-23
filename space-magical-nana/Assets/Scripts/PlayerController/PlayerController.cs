@@ -62,6 +62,9 @@ public class PlayerController : MonoBehaviour
 
     private PlayerState state = PlayerState.SlowMo;
 
+    // Required for the movement system: last position when not firing
+    private Vector2 _lastPos;
+
     // -- In game Execution ------------------
     private void Start()
     {
@@ -86,6 +89,9 @@ public class PlayerController : MonoBehaviour
     
 
     // -- Subsystems -------------------------
+    // If you want to add a new behavior to the player controller, 
+    // write it in a function and call the function in the update after the call 
+    // to UpdateState function.
 
     /// <summary>
     /// Update the current player state and other stateful information 
@@ -120,7 +126,7 @@ public class PlayerController : MonoBehaviour
     {
         if (state != PlayerState.Firing)
         {
-            _movingEntity.Stop();
+            _movingEntity.MovePosition(_lastPos);
             return;
         }
 
@@ -133,8 +139,7 @@ public class PlayerController : MonoBehaviour
         var screenPosition = touchInfo.Value.position;
         var worldPosition = _cam.ScreenToWorldPoint(screenPosition);
 
-        Debug.Log("Input position is: " + worldPosition);
-
+        _lastPos = worldPosition;
         _movingEntity.MovePosition(worldPosition);
     }
 

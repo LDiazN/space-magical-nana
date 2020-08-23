@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9550790}
   - component: {fileID: 9550791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialObjectCount: 0
-  _pooledObject: {fileID: 0}
+  _pooledObject: {fileID: 8211656797694830744, guid: 7819df4ed9edb9e42b79d3d7665d149f,
+    type: 3}
 --- !u!1 &113815748
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 113815749}
   - component: {fileID: 113815750}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PeaShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +225,7 @@ GameObject:
   - component: {fileID: 128637684}
   - component: {fileID: 128637683}
   - component: {fileID: 128637686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkillsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 205996347}
   - component: {fileID: 205996348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PeaCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +383,9 @@ GameObject:
   - component: {fileID: 292883156}
   - component: {fileID: 292883157}
   - component: {fileID: 292883155}
-  m_Layer: 0
+  - component: {fileID: 292883158}
+  - component: {fileID: 292883159}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,6 +498,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeTreshold: 0.09
   _moveTreshold: 0.1
+--- !u!114 &292883158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292883151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c43dc1d6a52f546af7482ba29dde3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weapons:
+  - {fileID: 420373836}
+--- !u!114 &292883159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292883151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0406d420b7f854a808ede4839b1729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseStats: {fileID: 11400000, guid: ad5a159c315f0e84fbcb547f29dcb8f4, type: 2}
 --- !u!1 &343365788
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 343365789}
   - component: {fileID: 343365790}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PeaGatlin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,6 +570,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _metadata: {fileID: 11400000, guid: d06226760b0d50e41bb63d41194af119, type: 2}
   _cdTime: 0
+--- !u!1 &420373834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 420373835}
+  - component: {fileID: 420373836}
+  m_Layer: 8
+  m_Name: PeaShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &420373835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420373834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1981991770}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &420373836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420373834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 171137ba67bb2204fba2cd0a5a52dec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ship: {fileID: 292883159}
+  metadata: {fileID: 11400000, guid: 31a6c0aac7dd4144eb3aea63ae2f71c3, type: 2}
+  bullets: {fileID: 9550791}
+  _spawnPos:
+  - {fileID: 292883154}
+  _simultaneous: 0
+  _damage: 0
+  _bulletLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _fireRate: 0.25
 --- !u!1 &1140602831
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +782,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1292635641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkillObjects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,7 +818,7 @@ GameObject:
   - component: {fileID: 1780935667}
   - component: {fileID: 1780935666}
   - component: {fileID: 1780935665}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1831063243}
   - component: {fileID: 1831063244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Skills
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,8 +967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1981991770}
-  - component: {fileID: 1981991771}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -903,19 +986,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9550790}
+  - {fileID: 420373835}
   m_Father: {fileID: 292883154}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1981991771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981991769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43c43dc1d6a52f546af7482ba29dde3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weapons: []
