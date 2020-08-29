@@ -991,7 +991,7 @@ MonoBehaviour:
   _animationTime: 0.2
   _cam: {fileID: 1166592505}
   _playerRectsSize: {x: 1, y: 1}
-  _playerRectsRadius: 0
+  _playerRectsRadius: 1.5
 --- !u!1 &1981991769
 GameObject:
   m_ObjectHideFlags: 0
