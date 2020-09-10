@@ -6,10 +6,10 @@ using UnityEngine;
 public class SkillMetadata : ScriptableObject
 {
     [SerializeField]
-    private string _description;
+    private string _description = "Hi, I'm a skill";
 
     [SerializeField]
-    private string _skillName;
+    private string _skillName = "name";
 
 
     [SerializeField]

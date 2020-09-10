@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
     private int _damage;
 
     [SerializeField]
-    private float _speed;
+    private float _speed = 0f;
     private Vector2 _velocity;
 
 

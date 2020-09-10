@@ -11,15 +11,15 @@ using UnityEngine;
 public class UpgradeableShip : Ship
 {
     [SerializeField]
-    private bool _loadFromGarage;
+    private bool _loadFromGarage = false;
     [SerializeField]
-    private PlayerShips _garageShip;
+    private PlayerShips _garageShip = PlayerShips.LaCalentona;
 
     /// <summary>
     /// Ship upgrades
     /// </summary>
     [SerializeField]
-    private ShipUpgrades _upgrades;
+    private ShipUpgrades _upgrades = null;
 
     public int HPLevel { get { return _upgrades.HPLevel; } }
     public int DMGLevel { get { return _upgrades.DMGLevel; } }

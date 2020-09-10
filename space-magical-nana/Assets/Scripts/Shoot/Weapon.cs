@@ -8,29 +8,29 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
-    protected Ship _ship;
+    protected Ship _ship = null;
 
     /// <summary>
     /// Weapon metadata, such as name, description, icon
     /// </summary>
     [SerializeField]
-    protected WeaponData metadata;
+    protected WeaponData metadata = null;
 
 
     /// <summary>
     /// Object pooler for this weapon bullets
     /// </summary>
     [SerializeField]
-    protected ObjectPool bullets;
+    protected ObjectPool bullets = null;
 
     /// <summary>
     /// Position from the player where the bullet should spawn
     /// </summary>
     [SerializeField]
-    protected Transform[] _spawnPos;
+    protected Transform[] _spawnPos = null;
     private int _currentGun = 0;
     [SerializeField]
-    private bool _simultaneous;
+    private bool _simultaneous = false;
 
     [SerializeField]
     protected int _damage;

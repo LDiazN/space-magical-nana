@@ -11,15 +11,15 @@ using UnityEngine;
 public class ShipBaseStatsSO : ScriptableObject
 {
     [SerializeField]
-    private int baseHP;
+    private int baseHP = 1;
     [SerializeField]
-    private int baseDamage;
+    private int baseDamage = 1;
     [SerializeField]
-    private float baseRate;
+    private float baseRate = 1f;
     [SerializeField]
-    private float baseSpeed;
+    private float baseSpeed = 1f;
     [SerializeField]
-    private float baseVampirism;
+    private float baseVampirism = 1f;
 
     public int BaseHP { get { return baseHP; } }
     public int BaseDamage { get { return baseDamage; } }
