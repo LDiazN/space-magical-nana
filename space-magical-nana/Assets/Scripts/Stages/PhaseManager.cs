@@ -21,6 +21,11 @@ public class PhaseManager<T>
     private int currentPhase = 0;
 
     /// <summary>
+    /// Ammount of phases to run
+    /// </summary>
+    private int _nPhases = 0;
+
+    /// <summary>
     /// Create a new phase manager based on a list of phases. Don't modify this list at 
     /// runtime.
     /// </summary>
@@ -28,14 +33,15 @@ public class PhaseManager<T>
     /// The list of phases to be called. 
     /// Whenever a phase it's called, it will be set to null  in this list
     /// </param>
-    public PhaseManager(List<T> phases) 
+    public PhaseManager(in List<T> phases) 
     {
         this.phases = phases;
         foreach(Phase phase in phases)
         {
             phase.enabled = false;
-            phase.SubscribePhase(RunPhases);
+            phase.SubscribePhaseEnded(RunPhases);
         }
+        _nPhases = phases.Count;
     } 
 
     /// <summary>
@@ -43,7 +49,7 @@ public class PhaseManager<T>
     /// </summary>
     public void RunPhases()
     {
-        if (currentPhase >= phases.Count)
+        if (currentPhase >= _nPhases)
         {
             phases = null;
             return;

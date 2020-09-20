@@ -8,20 +8,22 @@ using UnityEngine;
 /// </summary>
 class BaseLevel : MonoBehaviour
 {
+    /// <summary>
+    /// every single stage that this level has to play
+    /// </summary>
     [SerializeField] 
-    private List<Stage> stages;
+    private List<Stage> _stages;
 
 
-    private PhaseManager<Stage> phaseManager;
+    /// <summary>
+    /// This object will play each stage after the other
+    /// </summary>
+    private PhaseManager<Stage> _phaseManager;
     
     private void Start()
     {
-        phaseManager = new PhaseManager<Stage>(stages);
-        phaseManager.RunPhases();
+        _phaseManager = new PhaseManager<Stage>(_stages);
+        _phaseManager.RunPhases();
     }
 
-    private void Update()
-    {
-        
-    }
 }
