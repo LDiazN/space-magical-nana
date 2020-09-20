@@ -72,7 +72,4 @@ public class MovingEntity : BaseMovingEntity
 
     public override Vector2 GetVelocity() => _velocity;
 
-
-
-
 }
