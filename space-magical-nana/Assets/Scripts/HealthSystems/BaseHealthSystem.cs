@@ -18,6 +18,10 @@ public class BaseHealthSystem : MonoBehaviour
     [Min(0)]
     protected int _actualHP;
 
+    public delegate void HPEvent(int actHP);
+    public event HPEvent OnLifeChange;
+    public event HPEvent OnNoHP;
+
     /// <summary>
     /// Indicates if the ship is invincible
     /// </summary>
@@ -48,6 +52,13 @@ public class BaseHealthSystem : MonoBehaviour
         _actualHP = _maxHP;
     }
 
+    public void UpdateMaxHP(int max, int hp)
+    {
+        if (hp > max || hp < 1 || max < 1)
+            throw new ArgumentException("Invalid new HP update");
+        _maxHP = max;
+        _actualHP = hp;
+    }
 
     /// <summary>
     /// Process the amount to heal the ship.
@@ -77,7 +88,10 @@ public class BaseHealthSystem : MonoBehaviour
     /// <param name="amount">Amount to add</param>
     protected void AddHP(int amount)
     {
+        if (amount == 0)
+            return;
         _actualHP = Mathf.Clamp(_actualHP + amount, _actualHP, _maxHP);
+        OnLifeChange.Invoke(_actualHP);
     }
 
 
@@ -87,11 +101,15 @@ public class BaseHealthSystem : MonoBehaviour
     /// <param name="amount">Amount to reduce</param>
     protected void ReduceHP(int amount)
     {
+        if (amount == 0)
+            return;
+
         _actualHP = Mathf.Clamp(_actualHP - amount, 0, _actualHP);
         if (_actualHP == 0)
         {
-            Debug.Log("Rip in pieces");
+            OnNoHP.Invoke(0);
         }
+        OnLifeChange.Invoke(_actualHP);
     }
 
 
